@@ -70,8 +70,8 @@ resource "cloudflare_ruleset" "waf_custom" {
       action      = "managed_challenge"
     },
     {
-      description = "js_challenge"
-      expression  = "${local.on} and http.request.uri.path eq \"/js-challenge\""
+      description = "non-interactive challenge (js_challenge)"
+      expression  = "${local.on} and http.request.uri.path eq \"/non-interactive-challenge\""
       action      = "js_challenge"
     },
     {

@@ -1,5 +1,5 @@
 // Echo origin: shows what reached the Worker after WAF rules ran.
-const PATHS = ["/block", "/block?bypass=1", "/managed-challenge", "/js-challenge", "/interactive-challenge", "/ratelimit"];
+const PATHS = ["/block", "/block?bypass=1", "/managed-challenge", "/non-interactive-challenge", "/interactive-challenge", "/ratelimit"];
 
 const esc = (s) => s.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
 
