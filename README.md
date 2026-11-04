@@ -12,7 +12,7 @@ The origin is a small Worker (`worker.js`) that echoes the request back as HTML:
 | `/block` | `block` | 403, Cloudflare block page |
 | `/block?bypass=1` | `skip` (remaining custom rules) | 200, echo page; shows that skip overrides block |
 | `/managed-challenge` | `managed_challenge` | Cloudflare decides whether to show an interactive challenge |
-| `/js-challenge` | `js_challenge` | Interstitial page, then a `cf_clearance` cookie |
+| `/non-interactive-challenge` | `js_challenge` (Non-Interactive Challenge) | Interstitial page, then a `cf_clearance` cookie |
 | `/interactive-challenge` | `challenge` | Always an interactive challenge |
 | `/ratelimit` | rate limit → `block` | More than 5 requests in 10s per IP gets blocked for 10s |
 
@@ -23,7 +23,7 @@ Quick checks:
 ```bash
 H=$(terraform output -raw url)
 curl -si ${H}block | head -1
-curl -si ${H}js-challenge | grep -i -E '^HTTP|cf-mitigated'
+curl -si ${H}non-interactive-challenge | grep -i -E '^HTTP|cf-mitigated'
 for i in $(seq 8); do curl -s -o /dev/null -w '%{http_code}\n' ${H}ratelimit; done
 ```
 
